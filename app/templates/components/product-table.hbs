@@ -12,6 +12,9 @@
       <th>{{product.photo}}</th>
       <th>{{product.title}}</th>
       <th>{{product.description}}</th>
+      <th>
+        <button class="btn btn-danger" {{action "removeProduct" product.id}}>remove</button>
+      </th>
     </tr>
   {{/each}}
   </tbody>
