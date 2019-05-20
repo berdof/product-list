@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Photo</th>
+    <th scope="col">Title</th>
+    <th scope="col">Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each this.product as |product|}}
+    <tr>
+      <th>{{product.photo}}</th>
+      <th>{{product.title}}</th>
+      <th>{{product.description}}</th>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
