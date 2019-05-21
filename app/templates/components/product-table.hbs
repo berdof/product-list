@@ -7,15 +7,26 @@
   </tr>
   </thead>
   <tbody>
-  {{#each this.product as |product|}}
+  {{#each this.products as |product|}}
     <tr>
       <th>{{product.photo}}</th>
       <th>{{product.title}}</th>
       <th>{{product.description}}</th>
       <th>
-        <button class="btn btn-danger" {{action "removeProduct" product.id}}>remove</button>
+        <button class="btn btn-info" {{action "showUpdateModal" product}}>edit</button>
+      </th>
+      <th>
+        <button class="btn btn-danger" {{action "removeProduct" product}}>remove</button>
       </th>
     </tr>
   {{/each}}
   </tbody>
 </table>
+
+<AddProduct @action="update"
+            @isModalVisible={{this.isEditModalVisible}}
+            @store={{this.store}}
+            @productId={{productToEdit.id}}
+            @title={{productToEdit.title}}
+            @photo={{productToEdit.photo}}
+            @description={{productToEdit.description}}/>

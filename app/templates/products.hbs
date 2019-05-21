@@ -1,3 +1,10 @@
-<AddProduct @store={{this.store}}/>
-<ProductTable @product={{this.model}}
+<button type="button" class="btn btn-primary" data-toggle="modal" {{action "showAddModal"}}>
+  Add new product
+</button>
+
+<AddProduct @store={{this.store}}
+            @isModalVisible={{this.isAddModalVisible}}
+            @action="add"
+            @isShowButtonVisible={{true}}/>
+<ProductTable @products={{this.model}}
               @store={{this.store}}/>

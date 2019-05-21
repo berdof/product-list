@@ -1,51 +1,45 @@
 {{yield}}
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
-  Add new product
-</button>
+{{#if this.isShowButtonVisible}}
+
+{{/if}}
 
 <!-- Modal -->
-<div class="modal fade out" backdrop="false" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModal"
+<div class="modal fade out" backdrop="false" id={{this.componentName}} tabindex="-1" role="dialog"
+     aria-labelledby={{this.componentName}}
      aria-hidden="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title {{this.title}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title">{{this.modalTitle}}</h5>
       </div>
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="productTitle">Title</label>
+            <label>Title</label>
             {{input type="text"
                     class="form-control"
-                    id="productTitle"
                     placeholder="Enter title"
                     value=this.title}}
           </div>
           <div class="form-group">
-            <label for="productDescription">Description</label>
+            <label>Description</label>
             {{input type="text"
                     class="form-control"
-                    id="productDescription"
                     placeholder="Enter description"
                     value=this.description}}
           </div>
           <div class="form-group">
-            <label for="productPhoto">Photo</label>
+            <label>Photo</label>
             {{input type="text"
                     class="form-control"
-                    id="productPhoto"
                     placeholder="Enter photo"
                     value=this.photo}}
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" {{action "addProduct"}}>Save changes</button>
+        <button type="button" class="btn btn-primary" {{action "onSave"}}>Save changes</button>
       </div>
     </div>
   </div>
