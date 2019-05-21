@@ -1,10 +1,18 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" {{action "showAddModal"}}>
-  Add new product
-</button>
+<div class="row">
+  <div class="col-12 text-right">
+    <button type="button" class="btn btn-primary" data-toggle="modal" {{action "showAddModal"}}>
+      Add new product
+    </button>
+  </div>
+</div>
 
-<AddProduct @store={{this.store}}
-            @isModalVisible={{this.isAddModalVisible}}
-            @action="add"
-            @isShowButtonVisible={{true}}/>
-<ProductTable @products={{this.model}}
-              @store={{this.store}}/>
+<div class="row">
+  <div class="col-12">
+    <AddProductModal @store={{this.store}}
+                @isModalVisible={{this.isAddModalVisible}}
+                @action="add"
+                @isShowButtonVisible={{true}}/>
+    <ProductTable @products={{this.model}}
+                  @store={{this.store}}/>
+  </div>
+</div>

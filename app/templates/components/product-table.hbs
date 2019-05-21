@@ -1,51 +1,53 @@
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">Photo</th>
-    <th scope="col">Title</th>
-    <th scope="col">Description</th>
-    <th scope="col"></th>
-    <th scope="col"></th>
-  </tr>
-  </thead>
-  <tbody>
-  {{#each this.products as |product|}}
+<div local-class="wrap">
+  <table class="table">
+    <thead>
     <tr>
-      <th>{{product.photo}}</th>
-      <th>{{product.title}}</th>
-      <th>{{product.description}}</th>
-      <th>
-        <button class="btn btn-info" {{action "showUpdateModal" product}}>edit</button>
-      </th>
-      <th>
-        <button class="btn btn-danger" {{action "showRemoveModal" product}}>remove</button>
-      </th>
+      <th scope="col">Photo</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
-  {{/each}}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    {{#each this.products as |product|}}
+      <tr>
+        <td>{{product.photo}}</td>
+        <td>{{product.title}}</td>
+        <td>{{product.description}}</td>
+        <td class="col-auto">
+          <button class="btn btn-info" {{action "showUpdateModal" product}}>edit</button>
+        </td>
+        <td class="col-auto">
+          <button class="btn btn-danger" {{action "showRemoveModal" product}}>remove</button>
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
 
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h5 class="modal-title">Are You sure?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body text-center">
-        <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger" {{action "removeProduct" productToDelete}}>Yes, Delete</button>
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title">Are You sure?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger" {{action "removeProduct" productToDelete}}>Yes, Delete</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<AddProduct @action="update"
-            @isModalVisible={{this.isEditModalVisible}}
-            @store={{this.store}}
-            @productId={{productToEdit.id}}
-            @title={{productToEdit.title}}
-            @photo={{productToEdit.photo}}
-            @description={{productToEdit.description}}/>
+  <AddProductModal @action="update"
+                   @isModalVisible={{this.isEditModalVisible}}
+                   @store={{this.store}}
+                   @productId={{productToEdit.id}}
+                   @title={{productToEdit.title}}
+                   @photo={{productToEdit.photo}}
+                   @description={{productToEdit.description}}/>
+</div>
