@@ -55,6 +55,6 @@
     "node": "8.* || >= 10.*"
   },
   "dependencies": {
-    "bootstrap-sass": "^3.4.1"
+    "bootstrap": "^4.3.1"
   }
 }

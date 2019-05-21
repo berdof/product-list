@@ -7,7 +7,7 @@ module.exports = function(defaults) {
     // Add options here
     sassOptions: {
       includePaths: [
-        'node_modules/bootstrap-sass/assets/stylesheets'
+        'node_modules/bootstrap/scss'
       ]
     }
   });
@@ -24,7 +24,9 @@ module.exports = function(defaults) {
   // modules that you would like to import into your application
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
-  app.import('node_modules/bootstrap-sass/assets/javascripts/bootstrap.js');
+  app.import('node_modules/bootstrap/js/dist/index.js');
+  app.import('node_modules/bootstrap/js/dist/util.js');
+  app.import('node_modules/bootstrap/js/dist/modal.js');
 
   return app.toTree();
 };
