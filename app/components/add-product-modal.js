@@ -14,7 +14,7 @@ export default Component.extend({
   isSaving: false,
   firebaseApp: Ember.inject.service(),
 
-  fileToUploadBase64Change: function () {
+  fileToUploadBase64Change: observer('photo', 'action', 'fileToUpload', function () {
     if (this.get('fileToUpload')) {
       const reader = new FileReader();
       reader.readAsDataURL(this.get('fileToUpload'));
@@ -27,7 +27,7 @@ export default Component.extend({
     if (this.get('action') === 'update') {
       this.set('fileToUploadBase64', this.get('photo'));
     }
-  }.observes('photo', 'action', 'fileToUpload'),//.on('init'),
+  }),
 
   componentName: computed('action', function () {
     return `${this.action}Modal`;
@@ -118,11 +118,7 @@ export default Component.extend({
 
     onAddImage: function (file = []) {
       this.set('fileToUpload', file[0]);
-      this.set('test', this.get('action'));
-      /*const reader = new FileReader();
-      reader.readAsDataURL(file.blob);
-      reader.addEventListener("load", () => this.set('fileToUploadBase64', reader.result), false);*/
-    },//.bind(this),
+    },
 
     onRemoveImage() {
       this.setProperties({

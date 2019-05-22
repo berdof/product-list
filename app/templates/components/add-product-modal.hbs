@@ -4,13 +4,7 @@
      aria-hidden="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      {{#if this.isSaving}}
-        <div local-class="loading-wrap">
-          <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        </div>
-      {{/if}}
+      <LoadingOverlay @isVisible={{this.isSaving}}/>
       <div class="modal-header">
         <h5 class="modal-title">{{this.modalTitle}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -42,7 +36,7 @@
           </div>
 
           <div>
-            {{#x-file-input name="file" multiple=false action=(action "onAddImage") alt="Choose a File"}}
+            {{#x-file-input name="file" multiple=false action=(action "onAddImage") accept="image/png,image/jpg"}}
               {{#unless this.fileToUploadBase64}}
                 <span class="btn btn-info">Upload file</span>
               {{/unless}}
