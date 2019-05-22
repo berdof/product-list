@@ -1,17 +1,21 @@
-{{yield}}
-<!-- Button trigger modal -->
-{{#if this.isShowButtonVisible}}
-
-{{/if}}
-
 <!-- Modal -->
-<div class="modal fade out" backdrop="false" id={{this.componentName}} tabindex="-1" role="dialog"
+<div class="modal fade out" data-backdrop="static" id={{this.componentName}} tabindex="-1" role="dialog"
      aria-labelledby={{this.componentName}}
      aria-hidden="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+      {{#if this.isSaving}}
+        <div local-class="loading-wrap">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      {{/if}}
       <div class="modal-header">
         <h5 class="modal-title">{{this.modalTitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <form>
@@ -37,19 +41,21 @@
                     value=this.photo}}
           </div>
 
-          {{#file-upload name="photos"
-                         accept="image/*"
-                         multiple="false"
-                         onfileadd=(action "uploadImage") as |queue|}}
-            <a class="button">
-              {{#if this.isFileUploading}}
-                Uploading...
-              {{else}}
-                Upload file
-              {{/if}}
-            </a>
-          {{/file-upload}}
-          <img src={{this.fileToUploadBase64}} width="40">
+          <div>
+            {{#x-file-input name="file" multiple=false action=(action "onAddImage") alt="Choose a File"}}
+              {{#unless this.fileToUploadBase64}}
+                <span class="btn btn-info">Upload file</span>
+              {{/unless}}
+            {{/x-file-input}}
+            {{#if this.fileToUploadBase64}}
+              <div local-class="image">
+                <i local-class="btn-del" {{action "onRemoveImage"}}></i>
+                <img src={{this.fileToUploadBase64}}>
+              </div>
+            {{else}}
+
+            {{/if}}
+          </div>
         </form>
       </div>
       <div class="modal-footer">
