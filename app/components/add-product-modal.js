@@ -72,7 +72,14 @@ export default Component.extend({
       this.set('isModalVisible', !this.isModalVisible)
     },
 
-    async uploadImage(file) {
+    uploadImage(file) {
+      this.set('fileToUpload', file);
+      const reader = new FileReader();
+      reader.readAsDataURL(file.blob);
+      reader.addEventListener("load", () => this.set('fileToUploadBase64', reader.result), false);
+    },
+
+    async uploadImageOrig(file) {
       const storage = await this.firebaseApp.storage();
 
       this.set('isFileUploading', true);
