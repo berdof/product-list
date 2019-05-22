@@ -1,3 +1,4 @@
+import EmberObject from '@ember/object';
 import Controller from '@ember/controller';
 
 export default Controller.extend({
@@ -6,5 +7,5 @@ export default Controller.extend({
     searchQuery: {
       refreshModel: true
     }
-  },
+  }
 });

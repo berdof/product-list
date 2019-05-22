@@ -36,6 +36,20 @@
                     placeholder="Enter photo"
                     value=this.photo}}
           </div>
+
+          {{#file-upload name="photos"
+                         accept="image/*"
+                         multiple="false"
+                         onfileadd=(action "uploadImage") as |queue|}}
+            <a class="button">
+              {{#if this.isFileUploading}}
+                Uploading...
+              {{else}}
+                Upload file
+              {{/if}}
+            </a>
+          {{/file-upload}}
+
         </form>
       </div>
       <div class="modal-footer">
