@@ -10,6 +10,14 @@
     </tr>
     </thead>
     <tbody>
+    {{#unless this.products.length}}
+    <tr>
+      <td colspan="5" class="text-center">
+        No Data
+      </td>
+    </tr>
+    {{/unless}}
+
     {{#each this.products as |product|}}
       <tr>
         <td>{{product.photo}}</td>

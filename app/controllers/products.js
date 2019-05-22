@@ -1,4 +1,5 @@
 import Controller from '@ember/controller';
+import {observer, computed} from '@ember/object';
 
 export default Controller.extend({
   isAddModalVisible: false,
