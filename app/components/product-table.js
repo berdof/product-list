@@ -6,7 +6,6 @@ export default Component.extend({
   productToDelete: {},
   isEditModalVisible: false,
   isDeleting: false,
-  firebaseApp: Ember.inject.service(),
   actions: {
     showUpdateModal(product) {
       this.set('productToEdit', {
@@ -24,13 +23,7 @@ export default Component.extend({
     removeProduct: async function ({id}) {
       this.set('isDeleting', true);
       const product = await this.store.findRecord('product', id, {backgroundReload: false});
-      try {
-        const storage = await this.firebaseApp.storage();
-        await storage.refFromURL(product.photo).delete();
-      } catch (error) {
-        console.error(error);
-      }
-
+      await this.removePhoto(product.photo);
       product.destroyRecord();
       this.set('isDeleting', false);
       $('#deleteModal').modal('hide');
