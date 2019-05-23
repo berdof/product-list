@@ -68,6 +68,11 @@ export default Component.extend({
     const product = await this.store
       .findRecord('product', this.get('productId'), {backgroundReload: false});
 
+    if(this.get('photo') && !this.get('fileToUploadBase64')){
+      this.removePhoto(this.get('photo'));
+      this.set('photo', null);
+    }
+
     product.setProperties({
       title: this.get('title'),
       description: this.get('description'),
@@ -106,9 +111,9 @@ export default Component.extend({
       }
 
       if (this.action === 'add') {
-        this.createProduct();
+        await this.createProduct();
       } else if (this.action === 'update') {
-        this.updateProduct();
+        await this.updateProduct();
       } else {
         throw Error(`Unknown @action name: ${this.action}`);
       }
