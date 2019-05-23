@@ -16,7 +16,8 @@ export default Controller.extend({
     async login() {
       const provider = new firebase.auth.GoogleAuthProvider();
       const auth = await this.get('firebaseApp').auth();
-      return auth.signInWithPopup(provider);
+      await auth.signInWithPopup(provider);
+      this.transitionToRoute('products');
     },
     logout() {
       this.get('session').invalidate();
