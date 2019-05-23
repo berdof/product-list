@@ -27,14 +27,6 @@
                     placeholder="Enter description"
                     value=this.description}}
           </div>
-          <div class="form-group">
-            <label>Photo</label>
-            {{input type="text"
-                    class="form-control"
-                    placeholder="Enter photo"
-                    value=this.photo}}
-          </div>
-
           <div>
             {{#x-file-input name="file" multiple=false action=(action "onAddImage") accept="image/png,image/jpg"}}
               {{#unless this.fileToUploadBase64}}

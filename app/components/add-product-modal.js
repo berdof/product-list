@@ -4,9 +4,10 @@ import {computed, observer} from '@ember/object';
 
 export default Component.extend({
   productId: null,
+  imageToDelete: null,
   title: '',
   description: '',
-  photo: '',
+  photo: null,
   fileToUpload: null,
   fileToUploadBase64: null,
   isShowButtonVisible: false,
@@ -19,9 +20,10 @@ export default Component.extend({
       const reader = new FileReader();
       reader.readAsDataURL(this.get('fileToUpload'));
       reader.addEventListener("load", () => {
-        console.log('reader.result', reader.result)
         this.set('fileToUploadBase64', reader.result)
       }, false);
+    } else {
+      this.set('fileToUploadBase64', null)
     }
 
     if (this.get('action') === 'update') {
@@ -42,16 +44,16 @@ export default Component.extend({
   }),
 
   visibilityChange: observer('isModalVisible', function () {
-    this.showModal();
+    this.toggleModal();
   }),
 
   didInsertElement() {
     if (this.isModalVisible) {
-      this.showModal('show')
+      this.toggleModal('show')
     }
   },
 
-  showModal(action = 'toggle') {
+  toggleModal(action = 'toggle') {
     $(this.componentId).modal(action);
   },
 
@@ -68,9 +70,9 @@ export default Component.extend({
     const product = await this.store
       .findRecord('product', this.get('productId'), {backgroundReload: false});
 
-    if(this.get('photo') && !this.get('fileToUploadBase64')){
-      this.removePhoto(this.get('photo'));
-      this.set('photo', null);
+    if (this.get('imageToDelete')) {
+      this.removePhoto(this.get('imageToDelete'));
+      this.set('imageToDelete', null);
     }
 
     product.setProperties({
@@ -89,7 +91,7 @@ export default Component.extend({
 
     const task = storage
       .ref()
-      .child(`images/${file.name}`)
+      .child(`images/${file.name}${+new Date()}`)
       .put(file, {
         contentType: file.type
       });
@@ -109,16 +111,26 @@ export default Component.extend({
       if (this.get('fileToUpload')) {
         await this.uploadImage(this.get('fileToUpload'))
       }
-
-      if (this.action === 'add') {
-        await this.createProduct();
-      } else if (this.action === 'update') {
-        await this.updateProduct();
-      } else {
-        throw Error(`Unknown @action name: ${this.action}`);
+      try {
+        if (this.action === 'add') {
+          await this.createProduct();
+        } else if (this.action === 'update') {
+          await this.updateProduct();
+        } else {
+          throw Error(`Unknown @action name: ${this.action}`);
+        }
+      } catch (err) {
+        console.error(err);
       }
-      this.set('isModalVisible', !this.isModalVisible);
-      this.set('isSaving', false);
+      this.setProperties({
+        fileToUpload: null,
+        fileToUploadBase64: null,
+        isModalVisible: !this.isModalVisible,
+        isSaving: false,
+        photo: null,
+        description: '',
+        title: '',
+      });
     },
 
     onAddImage: function (file = []) {
@@ -128,7 +140,9 @@ export default Component.extend({
     onRemoveImage() {
       this.setProperties({
         fileToUpload: null,
-        fileToUploadBase64: null
+        fileToUploadBase64: null,
+        photo: null,
+        imageToDelete: this.get('photo')
       });
     }
   }
