@@ -1,0 +1,15 @@
+.btn-google {
+  color: #fff !important;
+  background-color: #ea4335;
+  &:hover{
+    background-color: darken(#ea4335, 15);
+  }
+}
+
+.btn-facebook {
+  color: #fff !important;
+  background-color: #3b5998;
+  &:hover{
+    background-color: darken(#3b5998, 15);
+  }
+}

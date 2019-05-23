@@ -27,6 +27,7 @@ module.exports = function(defaults) {
   app.import('node_modules/bootstrap/js/dist/index.js');
   app.import('node_modules/bootstrap/js/dist/util.js');
   app.import('node_modules/bootstrap/js/dist/modal.js');
+  app.import('node_modules/bootstrap/js/dist/dropdown.js');
 
   return app.toTree();
 };

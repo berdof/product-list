@@ -1,28 +1,30 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container">
-    <div class="row">
-      <div class="col-5">
-        <a class="navbar-brand">ProductApp</a>
-      </div>
-      <div class="col-7">
-        {{#if session.isAuthenticated}}
-          <ProductSearch @store={{this.store}}
-                         @searchQuery={{this.searchQuery}}/>
-        {{/if}}
+    <div class="col-2">
+      {{#link-to "products"  class="navbar-brand"}}
+        ProductApp
+      {{/link-to}}
+    </div>
+    <div class="col-5">
+      {{#if session.isAuthenticated}}
+        <ProductSearch @store={{this.store}}
+                       @searchQuery={{this.searchQuery}}/>
+      {{/if}}
+    </div>
+
+    <div class="col-2 offset-2 pr-0 nav-item dropdown">
+      <div class="float-right">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+          {{session.data.authenticated.user.displayName}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a {{action "logout"}} class="dropdown-item" href="#">Logout</a>
+        </div>
       </div>
     </div>
   </div>
 </nav>
 <div class="container" local-class="app">
-  <div class="row">
-    <div class="col-12">
-      {{#if session.isAuthenticated}}
-        Logged in as {{ session.data.authenticated.user.displayName }}
-        <button class="btn btn-info" {{action "logout"}}>Sign out</button>
-      {{else}}
-        <button class="btn btn-info" {{action "login"}}>Sign in with Google</button>
-      {{/if}}
-    </div>
-  </div>
   {{outlet}}
 </div>
