@@ -5,12 +5,24 @@
         <a class="navbar-brand">ProductApp</a>
       </div>
       <div class="col-7">
-        <ProductSearch @store={{this.store}}
-                       @searchQuery={{this.searchQuery}}/>
+        {{#if session.isAuthenticated}}
+          <ProductSearch @store={{this.store}}
+                         @searchQuery={{this.searchQuery}}/>
+        {{/if}}
       </div>
     </div>
   </div>
 </nav>
 <div class="container" local-class="app">
+  <div class="row">
+    <div class="col-12">
+      {{#if session.isAuthenticated}}
+        Logged in as {{ session.data.authenticated.user.displayName }}
+        <button class="btn btn-info" {{action "logout"}}>Sign out</button>
+      {{else}}
+        <button class="btn btn-info" {{action "login"}}>Sign in with Google</button>
+      {{/if}}
+    </div>
+  </div>
   {{outlet}}
 </div>

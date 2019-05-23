@@ -2,8 +2,13 @@ import Route from '@ember/routing/route';
 import RealtimeRouteMixin from 'emberfire/mixins/realtime-route';
 
 export default Route.extend(RealtimeRouteMixin, {
-  model(parma) {
+  model() {
     return this.store.query('product', {});
+  },
+  beforeModel() {
+    if (!this.controllerFor('application').get('session.isAuthenticated')) {
+      this.transitionTo('auth');
+    }
   },
   actions: {
     queryParamsDidChange: function ({searchQuery = ''}) {
