@@ -3,7 +3,9 @@ import RealtimeRouteMixin from 'emberfire/mixins/realtime-route';
 
 export default Route.extend(RealtimeRouteMixin, {
   model() {
-    return this.store.query('product', {});
+    return this.store.query('product', {
+      orderBy : 'created_at'
+    });
   },
   beforeModel() {
     if (!this.controllerFor('application').get('session.isAuthenticated')) {

@@ -62,6 +62,7 @@ export default Component.extend({
       title: this.get('title'),
       description: this.get('description'),
       photo: this.get('photo'),
+      created_at: (+new Date())
     });
     return newProduct.save();
   },
