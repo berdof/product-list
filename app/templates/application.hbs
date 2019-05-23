@@ -5,24 +5,24 @@
         ProductApp
       {{/link-to}}
     </div>
-    <div class="col-5">
-      {{#if session.isAuthenticated}}
+    {{#if session.isAuthenticated}}
+      <div class="col-5">
         <ProductSearch @store={{this.store}}
                        @searchQuery={{this.searchQuery}}/>
-      {{/if}}
-    </div>
 
-    <div class="col-2 offset-2 pr-0 nav-item dropdown">
-      <div class="float-right">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-          {{session.data.authenticated.user.displayName}}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a {{action "logout"}} class="dropdown-item" href="#">Logout</a>
+      </div>
+      <div class="col-2 offset-2 pr-0 nav-item dropdown">
+        <div class="float-right">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            {{session.data.authenticated.user.displayName}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a {{action "logout"}} class="dropdown-item" href="#">Logout</a>
+          </div>
         </div>
       </div>
-    </div>
+    {{/if}}
   </div>
 </nav>
 <div class="container" local-class="app">

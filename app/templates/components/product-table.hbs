@@ -20,14 +20,18 @@
 
     {{#each this.products as |product|}}
       <tr>
-        <td><img src={{product.photo}} width="100"/></td>
+        <td local-class="td-img"><img src={{product.photo}} width="100"/></td>
         <td>{{product.title}}</td>
         <td>{{product.description}}</td>
-        <td class="col-auto">
-          <button class="btn btn-info" {{action "showUpdateModal" product}}>edit</button>
+        <td local-class="td-btn">
+          <button class="btn btn-info" {{action "showUpdateModal" product}}>
+            <i class="fas fa-pencil-alt"></i>
+          </button>
         </td>
-        <td class="col-auto">
-          <button class="btn btn-danger" {{action "showRemoveModal" product}}>remove</button>
+        <td local-class="td-btn">
+          <button class="btn btn-danger" {{action "showRemoveModal" product}}>
+            <i class="fas fa-trash-alt"></i>
+          </button>
         </td>
       </tr>
     {{/each}}
